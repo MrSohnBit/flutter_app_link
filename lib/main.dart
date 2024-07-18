@@ -44,7 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _openWebPage(String payload) async {
-    const String baseUrl = 'https://todaymoney.page.link/?apn=com.okpos.merchant.dev&ibi=howmuch.okpos.co.kr&isi=1605931675&link=https://www.todaysales.co.kr?payload=';
+    const String baseUrl = 'https://todaymoney.page.link/?'
+                            'apn=com.okpos.merchant.dev'
+                            '&ibi=howmuch.okpos.co.kr'
+                            '&isi=1605931675'
+                            '&link=https://www.todaysales.co.kr?'
+                            'payload=';
     // final String inputText = _controller.text;
 
     // URL 인코딩
@@ -121,6 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       _openWebPageLandingUrl(landingUrl);
                     },
                     child: Text('landing_store_regist($_displayText)'),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      String landingUrl = "landing_cancel";
+                      _openWebPageLandingUrl(landingUrl);
+                    },
+                    child: Text('landing_cancel($_displayText)'),
                   ),
                 ],
               ),
