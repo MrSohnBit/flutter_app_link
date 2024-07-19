@@ -37,10 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
         "'type': '${data.type}',"
         "'landingType': '${data.landingType}',"
         "'landingUrl': '${data.landingUrl}',"
-        "'storeId': ${data.storeId},"
+        "'storeId': ${_displayText == '' ? -1 : int.parse(_displayText)},"
         "'bankAccountId': '${data.bankAccountId}',"
         "'reportMessageId': '${data.reportMessageId}'"
         "}";
+    print(payload);
     _openWebPage(payload);
   }
   // Future<void> _openWebPageLandingUrl(String landingUrl) async {
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var array = getDeepLinkDatas(_displayText == '' ? -1 : int.parse(_displayText));
+    var array = getDeepLinkDatas();
 
     return Scaffold(
       appBar: AppBar(
