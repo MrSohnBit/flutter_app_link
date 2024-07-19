@@ -72,44 +72,44 @@ String LANDING_ADDRESS = "landing_address";                         // CJFW 주�
 String LANDING_WEB_AS = "landing_web_as";                           //  AS 문의 웹페이지로 이동(landingType: inapp)
 
 
-List<DeepLink> getDeepLinkDatas(int storeId) {
+List<DeepLink> getDeepLinkDatas() {
   return [
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_REPORT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_EXPECT_REPORT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_SETTLEMENT_REPORT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CLOSE_REPORT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CANCEL, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_PUSH_LIST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NON_SETTLEMENT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NON_SETTLEMENT_HOLD, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_LOGIN, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_STORE_REGIST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DATA_REGIST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NOTICE, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_VAT_REQUEST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_STORE_INFO, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CARDLIST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERY_REVIEW, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_MENU, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_HOME, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CALENDAR, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ALL_LIST, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_SECRETARY, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_LINK_REFUND, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ZINI_BIZ, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_VAT_RESULT, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERYINFO, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_BIZCODE, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ADDRESS, "", ""),
-    DeepLink(storeId, FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_WEB_AS, "", ""),
+    DeepLink("일일 리포트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_REPORT, "", ""),
+    DeepLink("입금예정 리포트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_EXPECT_REPORT, "", ""),
+    DeepLink("매출정산 리포트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_SETTLEMENT_REPORT, "", ""),
+    DeepLink("마감 리포트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CLOSE_REPORT, "", ""),
+    DeepLink("마감 리포트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY, "", ""),
+    DeepLink("취소 거래 내역 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CANCEL, "", ""),
+    DeepLink("알림 내역 리스트", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_PUSH_LIST, "", ""),
+    DeepLink("카드 미지급금 내역(미매입)", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NON_SETTLEMENT, "", ""),
+    DeepLink("카드 미지급금 내역(입금보류)", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NON_SETTLEMENT_HOLD, "", ""),
+    DeepLink("로그인 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_LOGIN, "", ""),
+    DeepLink("매장 미등록", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_STORE_REGIST, "", ""),
+    DeepLink("데이터 미연동(포스연동)", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DATA_REGIST, "", ""),
+    DeepLink("공지사항", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NOTICE, "", ""),
+    DeepLink("부가세 신청", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_VAT_REQUEST, "", ""),
+    DeepLink("새로운 연동유저 알림, 초대관리자 내보내기 당할때", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_STORE_INFO, "", ""),
+    DeepLink("결제정보 확인", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CARDLIST, "", ""),
+    DeepLink("우리 가게 리뷰 페이지로 이동", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERY_REVIEW, "", ""),
+    DeepLink("POS 메뉴별 매출", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_MENU, "", ""),
+    DeepLink("메인 대시보드", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_HOME, "", ""),
+    DeepLink("메인 캘린더", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_CALENDAR, "", ""),
+    DeepLink("메인 모든내역", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ALL_LIST, "", ""),
+    DeepLink("메인 매장비서", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_SECRETARY, "", ""),
+    DeepLink("내역보기 - 카드환급금 조회(배너에서만 사용)", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_LINK_REFUND, "", ""),
+    DeepLink("상권분석 동종업매출비교로 이동", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ZINI_BIZ, "", ""),
+    DeepLink("부가세 신고 자료 발송 결과 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_VAT_RESULT, "", ""),
+    DeepLink("CJFW 주소/업종 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERYINFO, "", ""),
+    DeepLink("CJFW 업종 선택 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_BIZCODE, "", ""),
+    DeepLink("CJFW 주소 검색 화면", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ADDRESS, "", ""),
+    DeepLink("AS 문의 웹페이지로 이동(landingType: inapp)", FCM_PUSH_TYPE_APP_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_WEB_AS, "", ""),
   ];
 }
 
 class DeepLink {
   // List<DeepLink> list = getDeepLinkDatas(_displayText == ''? -1 : int.parse(_displayText));
 
-  int storeId = -1;
+  String name = "";
   String type = "";
   String landingType = "";
   String landingUrl = "";
@@ -117,7 +117,7 @@ class DeepLink {
   String reportMessageId = "0";
 
   DeepLink(
-      this.storeId,
+      this.name,
       this.type,
       this.landingType,
       this.landingUrl,
