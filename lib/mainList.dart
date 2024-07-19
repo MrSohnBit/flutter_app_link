@@ -35,14 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _openWebPageLandingUrl(String landingUrl) async {
     String payload =
-        "{"
-        "'type': 'storeInfo',"
-        "'landingType': 'inapp',"
-        "'landingUrl': '$landingUrl',"
-        "'storeId': $_displayText,"
-        "'bankAccountId': '0',"
-        "'reportMessageId': '0'"
-        "}";
+        '{'
+        '"type": "storeInfo",'
+        '"landingType": "inapp",'
+        '"landingUrl": "$landingUrl",'
+        '"storeId": "$_displayTex",
+        '"bankAccountId": "0",'
+        '"reportMessageId": "0"'
+        '}';
     _openWebPage(payload);
   }
 
