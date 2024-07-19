@@ -1,0 +1,11 @@
+https://mrsohnbit.github.io/flutter_app_link_web/
+
+..\flutter build web --release --base-href="/flutter_app_link_web/"
+
+cd /build/web/
+
+
+flutter build web --release --base-href="/flutter_app_link_web/"
+git commit -a -m "modify"
+git push
+

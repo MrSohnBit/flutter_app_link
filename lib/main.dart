@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_link/deep_link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -30,18 +31,30 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = TextEditingController();
   String _displayText = '';
 
-  Future<void> _openWebPageLandingUrl(String landingUrl) async {
+  Future<void> _openWebPageLandingUrl(DeepLink data) async {
     String payload =
         "{"
-        "'type': 'storeInfo',"
-        "'landingType': 'inapp',"
-        "'landingUrl': '$landingUrl',"
-        "'storeId': $_displayText,"
-        "'bankAccountId': '0',"
-        "'reportMessageId': '0'"
+        "'type': '${data.type}',"
+        "'landingType': '${data.landingType}',"
+        "'landingUrl': '${data.landingUrl}',"
+        "'storeId': ${data.storeId},"
+        "'bankAccountId': '${data.bankAccountId}',"
+        "'reportMessageId': '${data.reportMessageId}'"
         "}";
     _openWebPage(payload);
   }
+  // Future<void> _openWebPageLandingUrl(String landingUrl) async {
+  //   String payload =
+  //       "{"
+  //       "'type': 'storeInfo',"
+  //       "'landingType': 'inapp',"
+  //       "'landingUrl': '$landingUrl',"
+  //       "'storeId': $_displayText,"
+  //       "'bankAccountId': '0',"
+  //       "'reportMessageId': '0'"
+  //       "}";
+  //   _openWebPage(payload);
+  // }
 
   Future<void> _openWebPage(String payload) async {
     const String baseUrl = 'https://todaymoney.page.link/?'
@@ -84,6 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var array = getDeepLinkDatas(_displayText == '' ? -1 : int.parse(_displayText));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('DeepLink Test'),
@@ -92,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(
           children: [
+            const SizedBox(height: 20),
             TextField(
               controller: _controller,
               inputFormatters: [
@@ -101,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Enter text',
+                labelText: 'Store ID 입력',
               ),
               onChanged: (text) {
                 setState(() {
@@ -110,34 +126,23 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
-            SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // Text(
-                  //   'You entered: $_displayText',
-                  //   style: TextStyle(fontSize: 24),
-                  // ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      String landingUrl = "landing_store_regist";
-                      _openWebPageLandingUrl(landingUrl);
-                    },
-                    child: Text('landing_store_regist($_displayText)'),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      String landingUrl = "landing_cancel";
-                      _openWebPageLandingUrl(landingUrl);
-                    },
-                    child: Text('landing_cancel($_displayText)'),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 4),
+            Flexible(child:  ListView.separated(
+              itemCount: array.length,
+              itemBuilder: (BuildContext context, int i) {
+                var data = array[i];
+                return ListTile(
+                  title: Text("${data.name}(${data.landingUrl})"),
+                  onTap: () {
+                    _openWebPageLandingUrl(data);
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext ctx, int i) {
+                return Divider();
+              },
+            ))
+
           ],
         ),
       ),
