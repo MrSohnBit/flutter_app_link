@@ -58,12 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   Future<void> _openWebPage(String payload) async {
-    const String baseUrl = 'https://todaymoney.page.link/?'
-                            'apn=com.okpos.merchant.dev'
-                            '&ibi=howmuch.okpos.co.kr'
-                            '&isi=1605931675'
-                            '&link=https://www.todaysales.co.kr?'
-                            'payload=';
+    const String baseUrl = 'https://todaymoney.page.link/?apn=com.okpos.merchant.dev&ibi=howmuch.okpos.co.kr&isi=1605931675&link=https://www.todaysales.co.kr?payload=';
     // final String inputText = _controller.text;
 
     // URL 인코딩
@@ -108,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
             TextField(
               controller: _controller,
               inputFormatters: [
