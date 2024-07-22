@@ -34,12 +34,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _openWebPageLandingUrl(DeepLink data) async {
     String payload =
         '{'
-        '"type": "${data.type}",'
-        '"landingType": "${data.landingType}",'
-        '"landingUrl": "${data.landingUrl}",'
-        '"storeId": ${_displayText == '' ? -1 : int.parse(_displayText)},'
-        '"bankAccountId": "${data.bankAccountId}",'
-        '"reportMessageId": "${data.reportMessageId}"'
+        '"type":"${data.type}", '
+        '"landingType":"${data.landingType}", '
+        '"landingUrl":"${data.landingUrl}", '
+        '"storeId":${_displayText == '' ? -1 : _displayText}, '
+        '"bankAccountId":"${data.bankAccountId}", '
+        '"reportMessageId":"${data.reportMessageId}", '
+        '"referenceDate": "" '
         '}';
     print(payload);
     _openWebPage(payload);
