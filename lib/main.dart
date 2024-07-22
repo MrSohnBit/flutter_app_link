@@ -118,25 +118,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        // title: _isSearching ? _buildSearchField() : Text('딥링크 테스트'),
         title: _isSearching ? _buildSearchField() : Text('딥링크 테스트'),
         actions: _buildActions(),
       ),
       // appBar: AppBar(
       //   title: const Text('DeepLink Test'),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Column(
-          children: [
-            const SizedBox(height: 18),
-            TextField(
+      body: Column(
+        children: [
+          const SizedBox(height: 18),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextField(
               controller: _storeIdcontroller,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(8),
               ],
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Store ID 입력',
               ),
@@ -149,85 +150,102 @@ class _MyHomePageState extends State<MyHomePage> {
                 _startSearchStoreId();
               },
             ),
+          ),
 
-            const SizedBox(height: 4),
-            Expanded(child:  ListView.separated(
-              itemCount: _filteredItems.length,
-              itemBuilder: (BuildContext context, int i) {
-                var data = _filteredItems[i];
-                return ListTile(
-                  title: Text("${data.name}(${data.landingUrl})"),
-                  onTap: () {
-                    _openWebPageLandingUrl(data);
-                    _saveSearchHistory(data);
+          const SizedBox(height: 4),
+          Expanded(child: ListView.separated(
+            itemCount: _filteredItems.length,
+            itemBuilder: (BuildContext context, int i) {
+              var data = _filteredItems[i];
+              return ListTile(
+                // title: Text("${data.name}(${data.landingUrl})"),
+                title: _buildHighlightedText(data, _searchController.text),
+                onTap: () {
+                  _openWebPageLandingUrl(data);
+                  _saveSearchHistory(data);
+                  _saveSearchStoreIdHistory(_searchStoreIdText);
+                  _stopSearchStoreId();
+                },
+              );
+            },
+            separatorBuilder: (BuildContext ctx, int i) {
+              return Divider();
+            },
+          )),
 
-                    _saveSearchStoreIdHistory(_searchStoreIdText);
-                    _stopSearchStoreId();
-                  },
-                );
-              },
-              separatorBuilder: (BuildContext ctx, int i) {
-                return Divider();
-              },
-            )),
 
-
-            if (_isSearching && _searchHistory.isNotEmpty) ...[
-              Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('검색 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _searchHistory.map((query) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _selectSearchHistory(query);
-                        },
-                        child: Text(query.name),
+          if (_isSearching && _searchHistory.isNotEmpty) ...[
+            Container(
+              color: const Color.fromARGB(100, 200, 230, 186),
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 4.0, left: 12),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('검색 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: _searchHistory.map((query) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _selectSearchHistory(query);
+                              },
+                              child: Text(query.name),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            )
+          ],
 
-            if (_isSearchingStoreId && _searchStoreIdHistory.isNotEmpty) ...[
-              Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('StoreId 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          if (_isSearchingStoreId && _searchStoreIdHistory.isNotEmpty) ...[
+            Container(
+              color: const Color.fromARGB(100, 230, 168, 176),
+              child: Column(children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 4.0, left: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('StoreId 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _searchStoreIdHistory.map((query) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _selectStoreIdHistory(query);
-                        },
-                        child: Text(query),
-                      ),
-                    );
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: _searchStoreIdHistory.map((storeId) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _selectStoreIdHistory(storeId);
+                            },
+                            child: Text(storeId),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],),
+            )
 
           ],
-        ),
+
+        ],
       ),
     );
 
@@ -263,7 +281,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _searchItems(String query) {
     final filteredItems = _allItems.where((item) {
-      return item.name.toLowerCase().contains(query.toLowerCase());
+      return item.name.toLowerCase().contains(query.toLowerCase()) || item.landingUrl.toLowerCase().contains(query.toLowerCase());
     }).toList();
 
     setState(() {
@@ -291,6 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _selectStoreIdHistory(String storeId) {
     _storeIdcontroller.text = storeId;
+    _stopSearchStoreId();
   }
 
   List<Widget> _buildActions() {
@@ -317,6 +336,74 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _startSearch,
       ),
     ];
+  }
+
+
+  Widget _buildHighlightedText(DeepLink data, String query) {
+    if (query.isEmpty) {
+      // return Text(data.name);
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Text(data.name, style: const TextStyle(fontSize: 16)),
+        Text(data.landingUrl, style: const TextStyle(fontSize: 12),)
+      ],);
+    }
+
+    final List<TextSpan> spans = [];
+    int start = 0;
+    int indexOfHighlight;
+
+    while ((indexOfHighlight = data.name.toLowerCase().indexOf(query.toLowerCase(), start)) != -1) {
+      if (indexOfHighlight > start) {
+        spans.add(TextSpan(text: data.name.substring(start, indexOfHighlight)));
+      }
+
+      spans.add(TextSpan(
+        text: data.name.substring(indexOfHighlight, indexOfHighlight + query.length),
+        style: const TextStyle(backgroundColor: Colors.yellow),
+      ));
+
+      start = indexOfHighlight + query.length;
+    }
+
+    if (start < data.name.length) {
+      spans.add(TextSpan(text: data.name.substring(start)));
+    }
+
+
+    final List<TextSpan> spansLandignUrl = [];
+    start = 0;
+    indexOfHighlight;
+
+    while ((indexOfHighlight = data.landingUrl.toLowerCase().indexOf(query.toLowerCase(), start)) != -1) {
+      if (indexOfHighlight > start) {
+        spansLandignUrl.add(TextSpan(text: data.landingUrl.substring(start, indexOfHighlight)));
+      }
+
+      spansLandignUrl.add(TextSpan(
+        text: data.landingUrl.substring(indexOfHighlight, indexOfHighlight + query.length),
+        style: const TextStyle(backgroundColor: Colors.yellow),
+      ));
+
+      start = indexOfHighlight + query.length;
+    }
+
+    if (start < data.landingUrl.length) {
+      spansLandignUrl.add(TextSpan(text: data.landingUrl.substring(start)));
+    }
+
+
+    // return RichText(text: TextSpan(style: const TextStyle(color: Colors.black), children: spans));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(text: TextSpan(style: const TextStyle(color: Colors.black, fontSize: 16), children: spans)),
+        RichText(text: TextSpan(style: const TextStyle(color: Colors.black, fontSize: 12), children: spansLandignUrl)),
+        // Text(data.landingUrl, style: const TextStyle(fontSize: 12),)
+      ],);
   }
 
 }
