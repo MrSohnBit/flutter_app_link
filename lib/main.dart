@@ -28,18 +28,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  String _searchStoreIdText = '';
-
   final List<DeepLink> _allItems = getDeepLinkDatas();//List<String>.generate(50, (index) => 'Item ${index + 1}');
+  final List<DeepLink> _searchHistory = [];
   List<DeepLink> _filteredItems = [];
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
 
+  // StoreId 검색 기록
+  final TextEditingController _storeIdcontroller = TextEditingController();
+  String _searchStoreIdText = '';
   bool _isSearchingStoreId = false;
-  List<String> _searchHistory = [];
+
   List<String> _searchStoreIdHistory = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _filteredItems = getDeepLinkDatas();
+  }
 
 
   Future<void> _openWebPageLandingUrl(DeepLink data) async {
@@ -112,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: _isSearching ? _buildSearchField() : Text('Search Example'),
+        title: _isSearching ? _buildSearchField() : Text('딥링크 테스트'),
         actions: _buildActions(),
       ),
       // appBar: AppBar(
@@ -124,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const SizedBox(height: 18),
             TextField(
-              controller: _controller,
+              controller: _storeIdcontroller,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(8),
@@ -139,6 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   _searchStoreIdText = text;
                 });
               },
+              onTap: () {
+                _startSearchStoreId();
+              },
             ),
 
             const SizedBox(height: 4),
@@ -150,9 +159,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: Text("${data.name}(${data.landingUrl})"),
                   onTap: () {
                     _openWebPageLandingUrl(data);
-                    _saveSearchHistory(data.name);
-                    _saveSearchStoreIdHistory(_searchStoreIdText);
+                    _saveSearchHistory(data);
 
+                    _saveSearchStoreIdHistory(_searchStoreIdText);
+                    _stopSearchStoreId();
                   },
                 );
               },
@@ -162,13 +172,13 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
 
 
-            if (_isSearching) ...[
+            if (_isSearching && _searchHistory.isNotEmpty) ...[
               Divider(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('검색어 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text('검색 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 ),
               ),
               SingleChildScrollView(
@@ -181,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           _selectSearchHistory(query);
                         },
-                        child: Text(query),
+                        child: Text(query.name),
                       ),
                     );
                   }).toList(),
@@ -189,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
 
-            if (_isSearchingStoreId) ...[
+            if (_isSearchingStoreId && _searchStoreIdHistory.isNotEmpty) ...[
               Divider(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -206,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          _selectSearchIdHistory(query);
+                          _selectStoreIdHistory(query);
                         },
                         child: Text(query),
                       ),
@@ -239,6 +249,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _startSearchStoreId() {
+    setState(() {
+      _isSearchingStoreId = true;
+    });
+  }
+
+  void _stopSearchStoreId() {
+    setState(() {
+      _isSearchingStoreId = false;
+    });
+  }
+
   void _searchItems(String query) {
     final filteredItems = _allItems.where((item) {
       return item.name.toLowerCase().contains(query.toLowerCase());
@@ -249,26 +271,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _saveSearchHistory(String query) {
-    _searchHistory.remove(query); // 중복된 검색어 제거
-    _searchHistory.insert(0, query); // 맨 앞에 추가
+  void _saveSearchHistory(DeepLink data) {
+    _searchHistory.remove(data); // 중복된 검색어 제거
+    _searchHistory.insert(0, data); // 맨 앞에 추가
     setState(() {});
   }
   
-  void _saveSearchStoreIdHistory(String query) {
-    _searchStoreIdHistory.remove(query); // 중복된 검색어 제거
-    _searchStoreIdHistory.insert(0, query); // 맨 앞에 추가
-    setState(() {});
+  void _saveSearchStoreIdHistory(String storeId) {
+    if(storeId.isNotEmpty) {
+      _searchStoreIdHistory.remove(storeId); // 중복된 검색어 제거
+      _searchStoreIdHistory.insert(0, storeId); // 맨 앞에 추가
+      setState(() {});
+    }
   }
 
-  void _selectSearchHistory(String query) {
-    _searchController.text = query;
-    _searchItems(query);
+  void _selectSearchHistory(DeepLink data) {
+    _openWebPageLandingUrl(data);
   }
 
-  void _selectSearchIdHistory(String query) {
-    _controller.text = query;
-    _searchItems(query);
+  void _selectStoreIdHistory(String storeId) {
+    _storeIdcontroller.text = storeId;
   }
 
   List<Widget> _buildActions() {
@@ -282,6 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return;
             }
             _searchController.clear();
+            // _storeIdcontroller.clear();
             _searchItems('');
           },
         ),

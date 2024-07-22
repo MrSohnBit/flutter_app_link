@@ -6,6 +6,6 @@ cd /build/web/
 
 
 flutter build web --release --base-href="/flutter_app_link_web/"
-git commit -a -m "modify"
-git push
+
+./build/web/git pull;git commit -a -m "modify";./build/web/git push
 
