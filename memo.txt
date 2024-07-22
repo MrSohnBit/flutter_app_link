@@ -1,11 +1,12 @@
 https://mrsohnbit.github.io/flutter_app_link_web/
 
-..\flutter build web --release --base-href="/flutter_app_link_web/"
-
-cd /build/web/
-
-
 flutter build web --release --base-href="/flutter_app_link_web/"
 
-./build/web/git pull;git commit -a -m "modify";./build/web/git push
+cd .\build\web
+git pull;git commit -a -m "modify";git push;
 
+
+* Windows PowerShell 업데이트 설치
+winget search Microsoft.PowerShell
+winget install --id Microsoft.Powershell --source winget
+winget install --id Microsoft.Powershell.Preview --source winget
