@@ -35,11 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _searchController = TextEditingController();
 
   // StoreId 검색 기록
-  TextEditingController _storeIdcontroller = TextEditingController();
+  final TextEditingController _storeIdcontroller = TextEditingController();
   String _searchStoreIdText = '';
   bool _isSearchingStoreId = false;
 
-  List<String> _searchStoreIdHistory = [];
+  final List<String> _searchStoreIdHistory = [];
 
   @override
   void initState() {
