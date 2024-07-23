@@ -74,6 +74,16 @@ String LANDING_WEB_AS = "landing_web_as";                           //  AS 문�
 
 List<DeepLink> getDeepLinkDatas() {
   return [
+    // DeepLink("마감 리포트", FCM_PUSH_TYPE_CLOSED, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
+    // DeepLink("일일 리포트", FCM_PUSH_TYPE_DAILY, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
+    // DeepLink("입금예정금액 리포트", FCM_PUSH_TYPE_DAILY_EXPECT, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
+    // DeepLink("매출 정산 리포트", FCM_PUSH_TYPE_DAILY_SETTLEMENT, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
+
+    DeepLink("CJ웹몰", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_WEBVIEW_EXT_CJ, "", "0", "0"),
+    DeepLink("CJFW 주소/업종 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERYINFO, "0", "0"),
+    DeepLink("CJFW 업종 선택 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_BIZCODE, "0", "0"),
+    DeepLink("CJFW 주소 검색 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ADDRESS, "0", "0"),
+
     DeepLink("일일 리포트", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_REPORT, "0", "0"),
     DeepLink("입금예정 리포트", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_EXPECT_REPORT, "0", "0"),
     DeepLink("매출정산 리포트", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_SETTLEMENT_REPORT, "0", "0"),
@@ -111,10 +121,7 @@ List<DeepLink> getDeepLinkDatas() {
     DeepLink("새로오픈한매장", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_NEW_STORE, "0", "0"),
 
 
-    DeepLink("CJFW 주소/업종 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERYINFO, "0", "0"),
-    DeepLink("CJFW 업종 선택 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_BIZCODE, "0", "0"),
-    DeepLink("CJFW 주소 검색 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ADDRESS, "0", "0"),
-    DeepLink("AS 문의 웹페이지로 이동(landingType: inapp)", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_WEB_AS, "0", "0"),
+    DeepLink("AS 문의", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_WEB_AS, "0", "0"),
   ];
 }
 

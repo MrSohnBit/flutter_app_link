@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _searchController = TextEditingController();
 
   // StoreId 검색 기록
-  final TextEditingController _storeIdcontroller = TextEditingController();
+  TextEditingController _storeIdcontroller = TextEditingController();
   String _searchStoreIdText = '';
   bool _isSearchingStoreId = false;
 
@@ -149,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 _startSearchStoreId();
               },
+
             ),
           ),
 
@@ -173,49 +174,11 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           )),
 
-
-          if (_isSearching && _searchHistory.isNotEmpty) ...[
-            Container(
-              color: const Color.fromARGB(100, 200, 230, 186),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Text('검색기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 10,),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: _searchHistory.map((query) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  _selectSearchHistory(query);
-                                },
-                                child: Text(query.name),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                    // IconButton(icon: const Icon(Icons.clear),
-                    //   onPressed: () {
-                    //
-                    //   })
-                  ],
-                ),
-              ),
-            )
-          ],
-
           if (_isSearchingStoreId && _searchStoreIdHistory.isNotEmpty) ...[
             Container(
               color: const Color.fromARGB(100, 230, 168, 176),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Row(
                   children: [
                     const Text('StoreId 기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -248,6 +211,45 @@ class _MyHomePageState extends State<MyHomePage> {
             )
 
           ],
+
+          // if (_isSearching && _searchHistory.isNotEmpty) ...[
+          if (_searchHistory.isNotEmpty) ...[
+            Container(
+              color: const Color.fromARGB(100, 200, 230, 186),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Row(
+                  children: [
+                    const Text('검색기록', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 10,),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: _searchHistory.map((query) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _selectSearchHistory(query);
+                                },
+                                child: Text(query.name),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    // IconButton(icon: const Icon(Icons.clear),
+                    //   onPressed: () {
+                    //
+                    //   })
+                  ],
+                ),
+              ),
+            )
+          ],
+
 
         ],
       ),

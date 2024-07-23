@@ -5,8 +5,10 @@ flutter build web --release --base-href="/flutter_app_link_web/"
 cd .\build\web
 git pull;git commit -a -m "modify";git push;
 
+flutter build web --release --base-href="/flutter_app_link_web/";cd .\build\web\;git commit -a -m "modify";git push;cd ../../
 
 * Windows PowerShell 업데이트 설치
 winget search Microsoft.PowerShell
 winget install --id Microsoft.Powershell --source winget
 winget install --id Microsoft.Powershell.Preview --source winget
+
