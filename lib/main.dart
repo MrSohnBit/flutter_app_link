@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final String encodedText = Uri.encodeComponent(payload);
     final String url = '$baseUrl$encodedText';
 
-    final String closeScript = '''
+    const String closeScript = '''
     <script>
       setTimeout(function() {
         window.close();
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final String closeUrl = 'data:text/html;base64,${base64Encode(utf8.encode(closeScript))}';
       final Uri closeUri = Uri.parse(closeUrl);
       if (await canLaunchUrl(closeUri)) {
-        await Future.delayed(Duration(seconds: 1)); // 잠시 대기 후 스크립트 실행
+        await Future.delayed(const Duration(seconds: 1)); // 잠시 대기 후 스크립트 실행
         await launchUrl(closeUri);
       }
     } else {
@@ -97,29 +97,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-
-    Widget _buildSearchField() {
-      return TextField(
-        controller: _searchController,
-        autofocus: true,
-        decoration: const InputDecoration(
-          hintText: 'Search...',
-          border: InputBorder.none,
-          hintStyle: TextStyle(color: Colors.grey),
-        ),
-        style: const TextStyle(color: Colors.black, fontSize: 16.0),
-        onChanged: _searchItems,
-      );
-    }
-
-
 
     return Scaffold(
       appBar: AppBar(
         // title: _isSearching ? _buildSearchField() : Text('딥링크 테스트'),
-        title: _isSearching ? _buildSearchField() : Text('딥링크 테스트'),
+        title: _isSearching ? _buildSearchField() : const Text('딥링크 테스트'),
         actions: _buildActions(),
       ),
       // appBar: AppBar(
@@ -356,9 +341,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],);
     }
 
-    final List<TextSpan> spans = getTextSpans(data.name, query);
+    final List<TextSpan> spans = _getTextSpans(data.name, query);
     String landingText = "${data.landingUrl}/${data.landingType}/${data.type}";
-    final List<TextSpan> spansLandignUrl = getTextSpans(landingText, query);
+    final List<TextSpan> spansLandignUrl = _getTextSpans(landingText, query);
 
     // return RichText(text: TextSpan(style: const TextStyle(color: Colors.black), children: spans));
     return Column(
@@ -372,7 +357,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-  List<TextSpan> getTextSpans(String title, String query) {
+  Widget _buildSearchField() {
+    return TextField(
+      controller: _searchController,
+      autofocus: true,
+      decoration: const InputDecoration(
+        hintText: 'Search...',
+        border: InputBorder.none,
+        hintStyle: TextStyle(color: Colors.grey),
+      ),
+      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      onChanged: _searchItems,
+    );
+  }
+
+
+  List<TextSpan> _getTextSpans(String title, String query) {
     final List<TextSpan> spans = [];
     int start = 0;
     int indexOfHighlight;
