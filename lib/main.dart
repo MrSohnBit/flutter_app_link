@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _openWebPage(String payload) async {
-    const String baseUrl = 'https://todaymoney.page.link/?apn=com.okpos.merchant.dev&ibi=howmuch.okpos.co.kr&isi=1605931675&link=https://www.todaysales.co.kr?payload=';
+    const String baseUrl = 'https://todaymoney.page.link/?apn=com.okpos.merchant.dev&ibi=howmuch.okpos.co.kr&isi=1605931675&link=https://www.todaysales.co.kr?data=';
     // final String inputText = _controller.text;
 
     // URL 인코딩
@@ -323,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return <Widget>[
       IconButton(
-        icon: Icon(Icons.search),
+        icon: const Icon(Icons.search),
         onPressed: _startSearch,
       ),
     ];
