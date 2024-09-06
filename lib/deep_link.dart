@@ -13,8 +13,8 @@ String FCM_PUSH_TYPE_NEW_REVIEW = "newReview";                  // 새로운 리
 
 // landingType
 String FCM_LANDING_TYPE_IN_APP = "inapp";       // 인앱링크
-String FCM_LANDING_TYPE_IN_WEBVIEW = "webview"; // 앱내 웹뷰
 String FCM_LANDING_TYPE_IN_CONTENT = "content"; // response의 content html 화면
+String FCM_LANDING_TYPE_IN_WEBVIEW = "webview"; // 앱내 웹뷰
 String FCM_LANDING_TYPE_EXTERNAL = "external";  // 외부 링크
 String FCM_LANDING_TYPE_NONE = "none";          // 동작없음
 String FCM_LANDING_TYPE_WEBVIEW_EXT_CJ = "webview_ext_cj";   // CJFW 식자재몰 띄우기
@@ -79,10 +79,15 @@ List<DeepLink> getDeepLinkDatas() {
     // DeepLink("입금예정금액 리포트", FCM_PUSH_TYPE_DAILY_EXPECT, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
     // DeepLink("매출 정산 리포트", FCM_PUSH_TYPE_DAILY_SETTLEMENT, FCM_LANDING_TYPE_IN_APP, "", "0", "0"),
 
+    // DeepLink("식자재몰 상품 기획전 다이나믹 링크", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_WEBVIEW_EXT_CJ, "", "0", "0"),
     DeepLink("CJ웹몰", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_WEBVIEW_EXT_CJ, "", "0", "0"),
+
     DeepLink("CJFW 주소/업종 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DELIVERYINFO, "0", "0"),
     DeepLink("CJFW 업종 선택 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_BIZCODE, "0", "0"),
     DeepLink("CJFW 주소 검색 화면", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_ADDRESS, "0", "0"),
+
+    DeepLink("내부 웹뷰", FCM_PUSH_TYPE_MARKETING, FCM_LANDING_TYPE_IN_WEBVIEW, "https://www.google.com", "0", "0"),
+    DeepLink("외부 웹뷰", FCM_PUSH_TYPE_MARKETING, FCM_LANDING_TYPE_EXTERNAL, "https://www.google.com", "0", "0"),
 
     DeepLink("일일 리포트", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_REPORT, "0", "0"),
     DeepLink("입금예정 리포트", FCM_PUSH_TYPE_STORE_INFO, FCM_LANDING_TYPE_IN_APP, LANDING_DAILY_EXPECT_REPORT, "0", "0"),
@@ -136,6 +141,7 @@ class DeepLink {
   String landingUrl = "";
   String bankAccountId = "0";
   String reportMessageId = "0";
+  String linkType = "kakao";
 
   DeepLink(
       this.name,

@@ -49,16 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   Future<void> _openWebPageLandingUrl(DeepLink data) async {
-    String payload =
-        '{'
-        '"type":"${data.type}", '
-        '"landingType":"${data.landingType}", '
-        '"landingUrl":"${data.landingUrl}", '
-        '"storeId":${_searchStoreIdText == '' ? -1 : _searchStoreIdText}, '
-        '"bankAccountId":"${data.bankAccountId}", '
-        '"reportMessageId":"${data.reportMessageId}", '
-        '"referenceDate": "" '
-        '}';
+    StringBuffer sb = StringBuffer();
+    sb.write('{');
+    sb.write('"type":"${data.type}", ');
+    sb.write('"landingType":"${data.landingType}", ');
+    sb.write('"landingUrl":"${data.landingUrl}", ');
+    sb.write('"storeId":${_searchStoreIdText == '' ? -1 : _searchStoreIdText}, ');
+    sb.write('"bankAccountId":"${data.bankAccountId}", ');
+    sb.write('"reportMessageId":"${data.reportMessageId}", ');
+    sb.write('"referenceDate": "",');
+    sb.write('"linkType": "kakao"');
+    if(data.landingType == FCM_LANDING_TYPE_WEBVIEW_EXT_CJ) {
+      sb.write(',');
+      sb.write('"cfP": "testCfp",');
+      sb.write('"cfE": "testCfe",');
+    }
+    sb.write('}');
+
+
+    String payload = sb.toString();
     print(payload);
     _openWebPage(payload);
   }
