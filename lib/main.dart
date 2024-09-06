@@ -59,11 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
     sb.write('"reportMessageId":"${data.reportMessageId}", ');
     sb.write('"referenceDate": "",');
     sb.write('"linkType": "kakao"');
+
     if(data.landingType == FCM_LANDING_TYPE_WEBVIEW_EXT_CJ) {
       sb.write(',');
-      sb.write('"cfP": "testCfp",');
-      sb.write('"cfE": "testCfe",');
+      sb.write('"landingUrlProductCode": "testCfp",');
+      sb.write('"landingUrlProductEventCode": "testCfe"');
     }
+
     sb.write('}');
 
 
