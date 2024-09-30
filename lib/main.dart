@@ -60,10 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
     sb.write('"referenceDate": "",');
     sb.write('"linkType": "kakao"');
 
+
     if(data.landingType == FCM_LANDING_TYPE_WEBVIEW_EXT_CJ) {
       sb.write(',');
-      sb.write('"landingUrlProductCode": "testCfp",');
-      sb.write('"landingUrlProductEventCode": "testCfe"');
+      sb.write('"cjEventId": "1"');
     }
 
     sb.write('}');
